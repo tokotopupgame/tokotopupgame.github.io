@@ -3,91 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kurasi Top-Up Game Termurah</title>
-    <!-- Bootstrap CSS -->
+    <title>Toko Topup Game</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
-        body { background-color: #1a1a2e; color: white; }
-        .table-container { background: #16213e; padding: 20px; border-radius: 10px; margin-top: 30px; }
-        .table { color: white; }
-        .btn-visit { background-color: #e94560; color: white; border: none; }
-        .btn-visit:hover { background-color: #0f3460; color: white; }
-        .promo-code { font-family: monospace; background: #0f3460; padding: 2px 5px; border: 1px dashed #e94560; }
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --promo-bg: #334155;
+            --text-gold: #fbbf24;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f1f5f9;
+            padding-bottom: 50px;
+        }
+
+        /* Navbar/Header */
+        .hero-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 60px 0 40px;
+            border-bottom: 1px solid #334155;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Search & Filter */
+        .filter-container {
+            margin-top: -30px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .search-box {
+            background: var(--bg-card);
+            border: 1px solid #475569;
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .search-box:focus {
+            background: var(--bg-card);
+            border-color: var(--accent);
+            color: white;
+            box-shadow: 0 0 0 0.25 darkred;
+        }
+
+        .btn-filter {
+            background: var(--bg-card);
+            color: white;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            padding: 8px 20px;
+            margin: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-filter.active, .btn-filter:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        /* Desktop Table Styling */
+        .custom-table-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            display: none; /* Hidden on mobile */
+        }
+
+        @media (min-width: 992px) {
+            .custom-table-container { display: block; }
+        }
+
+        .table { margin-bottom: 0; color: #cbd5e1; }
+        .table thead { background: #334155; color: white; }
+        .table th { padding: 20px; border: none; }
+        .table td { padding: 20px; vertical-align: middle; border-color: #334155; }
+
+        /* Mobile Card Styling */
+        .mobile-cards { display: block; }
+        @media (min-width: 992px) {
+            .mobile-cards { display: none; }
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #334155;
+        }
+
+        /* Elements */
+        .badge-game {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--accent);
+        }
+
+        .price-tag {
+            color: var(--text-gold);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .promo-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--promo-bg);
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .promo-wrapper:hover { background: #475569; }
+
+        .btn-visit {
+            background: var(--accent);
+            color: var(--bg-dark);
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 8px 20px;
+            border: none;
+        }
+
+        .btn-visit:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Toast Animation */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #10b981;
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 16px;
+            position: fixed;
+            z-index: 100;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2 class="text-center mt-5">🎮 Kurasi Top-Up Game</h2>
-    <p class="text-center text-muted">Bandingkan harga dan temukan promo terbaik</p>
-
-    <!-- Filter Pencarian -->
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-6">
-            <input type="text" id="searchInput" class="form-control" placeholder="Cari nama game atau website...">
-        </div>
+<div class="hero-section">
+    <div class="container">
+        <h1 class="hero-title display-4">GameTopUp</h1>
+        <p class="text-secondary">Kurasi harga top-up termurah dari marketplace terpercaya</p>
     </div>
+</div>
 
-    <div class="table-container shadow">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Website</th>
-                        <th>Game</th>
-                        <th>Produk</th>
-                        <th>Harga</th>
-                        <th>Kode Promo</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="topupTable">
-                    <!-- Data akan muncul di sini via JavaScript -->
-                </tbody>
-            </table>
+<div class="container filter-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <input type="text" id="searchInput" class="form-control search-box" placeholder="Cari game (MLBB, Free Fire, Genshin...) atau website...">
+            
+            <div class="text-center mt-4">
+                <button class="btn-filter active" onclick="filterByGame('All')">Semua</button>
+                <button class="btn-filter" onclick="filterByGame('Mobile Legends')">MLBB</button>
+                <button class="btn-filter" onclick="filterByGame('Free Fire')">Free Fire</button>
+                <button class="btn-filter" onclick="filterByGame('Genshin Impact')">Genshin</button>
+                <button class="btn-filter" onclick="filterByGame('Valorant')">Valorant</button>
+            </div>
         </div>
     </div>
 </div>
 
+<div class="container mt-5">
+    <!-- Desktop Table View -->
+    <div class="custom-table-container shadow-lg">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Website</th>
+                    <th>Game</th>
+                    <th>Produk</th>
+                    <th>Harga</th>
+                    <th>Promo</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="desktopBody">
+                <!-- JS Data -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mobile Card View -->
+    <div id="mobileBody" class="mobile-cards">
+        <!-- JS Data -->
+    </div>
+</div>
+
+<div id="toast">✅ Kode Promo berhasil disalin!</div>
+
 <script>
-    // Data contoh (Bisa kamu tambah sendiri)
     const dataTopUp = [
-        { name: "Codashop", game: "Mobile Legends", product: "86 Diamonds", price: "Rp 20.000", promo: "CODA5K", link: "https://codashop.com" },
-        { name: "UniPin", game: "Free Fire", product: "140 Diamonds", price: "Rp 19.500", promo: "UNIPINBARU", link: "https://unipin.com" },
-        { name: "Itemku", game: "Mobile Legends", product: "86 Diamonds", price: "Rp 18.900", promo: "-", link: "https://itemku.com" },
-        { name: "Dunia Games", game: "Genshin Impact", product: "60 Genesis Crystal", price: "Rp 15.000", promo: "DGCHEAP", link: "https://duniagames.co.id" },
+        { name: "Codashop", game: "Mobile Legends", product: "86 Diamonds", price: 20000, promo: "CODA5K", link: "https://codashop.com" },
+        { name: "UniPin", game: "Free Fire", product: "140 Diamonds", price: 19500, promo: "FREEFF23", link: "https://unipin.com" },
+        { name: "Itemku", game: "Mobile Legends", product: "86 Diamonds", price: 18900, promo: "ITEMKUOK", link: "https://itemku.com" },
+        { name: "Dunia Games", game: "Genshin Impact", product: "60 Genesis", price: 15500, promo: "DGGENSHIN", link: "https://duniagames.co.id" },
+        { name: "VCGamers", game: "Valorant", product: "625 VP", price: 62000, promo: "VALOVCG", link: "https://vcgamers.com" },
+        { name: "Bang Alex Store", game: "Mobile Legends", product: "86 Diamonds", price: 18500, promo: "ALEXNEW", link: "#" },
     ];
 
-    function renderTable(data) {
-        const tableBody = document.getElementById('topupTable');
-        tableBody.innerHTML = "";
-        
-        data.forEach(item => {
-            tableBody.innerHTML += `
+    function formatRupiah(num) {
+        return "Rp " + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    function copyPromo(code) {
+        if (code === '-') return;
+        navigator.clipboard.writeText(code);
+        const toast = document.getElementById("toast");
+        toast.className = "show";
+        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    function render(filterGame = 'All', searchText = '') {
+        const dBody = document.getElementById('desktopBody');
+        const mBody = document.getElementById('mobileBody');
+        dBody.innerHTML = '';
+        mBody.innerHTML = '';
+
+        const filtered = dataTopUp.filter(item => {
+            const matchGame = filterGame === 'All' || item.game === filterGame;
+            const matchSearch = item.name.toLowerCase().includes(searchText.toLowerCase()) || 
+                                item.game.toLowerCase().includes(searchText.toLowerCase());
+            return matchGame && matchSearch;
+        });
+
+        filtered.forEach(item => {
+            // Desktop Row
+            dBody.innerHTML += `
                 <tr>
-                    <td><strong>${item.name}</strong></td>
-                    <td>${item.game}</td>
+                    <td><span class="fw-bold text-white">${item.name}</span></td>
+                    <td><span class="badge-game">${item.game}</span></td>
                     <td>${item.product}</td>
-                    <td class="text-warning fw-bold">${item.price}</td>
-                    <td><span class="promo-code">${item.promo}</span></td>
-                    <td><a href="${item.link}" target="_blank" class="btn btn-sm btn-visit">Cek Web</a></td>
+                    <td><span class="price-tag">${formatRupiah(item.price)}</span></td>
+                    <td>
+                        <div class="promo-wrapper" onclick="copyPromo('${item.promo}')">
+                            <small class="me-2">${item.promo}</small>
+                            <i class="fa-regular fa-copy text-info"></i>
+                        </div>
+                    </td>
+                    <td><a href="${item.link}" target="_blank" class="btn btn-visit btn-sm">Beli Sekarang</a></td>
                 </tr>
+            `;
+
+            // Mobile Card
+            mBody.innerHTML += `
+                <div class="game-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="mb-0 text-white">${item.name}</h5>
+                            <span class="badge-game">${item.game}</span>
+                        </div>
+                        <span class="price-tag">${formatRupiah(item.price)}</span>
+                    </div>
+                    <div class="text-secondary small mb-3">${item.product}</div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="promo-wrapper" onclick="copyPromo('${item.promo}')">
+                            <small class="me-2">Promo: <b>${item.promo}</b></small>
+                            <i class="fa-regular fa-copy text-info"></i>
+                        </div>
+                        <a href="${item.link}" class="btn btn-visit btn-sm">Beli</a>
+                    </div>
+                </div>
             `;
         });
     }
 
-    // Fungsi Pencarian
-    document.getElementById('searchInput').addEventListener('keyup', function() {
-        const value = this.value.toLowerCase();
-        const filteredData = dataTopUp.filter(item => 
-            item.name.toLowerCase().includes(value) || 
-            item.game.toLowerCase().includes(value)
-        );
-        renderTable(filteredData);
+    // Search Logic
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        render('All', e.target.value);
     });
 
-    // Inisialisasi awal
-    renderTable(dataTopUp);
+    // Filter Logic
+    function filterByGame(game) {
+        document.querySelectorAll('.btn-filter').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.innerText.includes(game) || (game === 'All' && btn.innerText === 'Semua')) {
+                btn.classList.add('active');
+            }
+        });
+        render(game);
+    }
+
+    // Initial Render
+    render();
 </script>
 
 </body>
