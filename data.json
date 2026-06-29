@@ -1,0 +1,17 @@
+[
+    {
+        "name": "MobaPay",
+        "link": "https://www.mobapay.com",
+        "category": "Official"
+    },
+  {
+        "name": "VocaGame",
+        "link": "https://vocagame.com",
+        "category": "Official"
+    },
+    {
+        "name": "UniPin",
+        "link": "https://unipin.com",
+        "category": "Official"
+    }
+]
