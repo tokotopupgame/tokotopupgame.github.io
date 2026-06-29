@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='impact-site-verification' value='6e99c718-0488-49cf-8c4f-f511d49e3323'>
+    
+    <title>Toko Topup Game | List Website Topup Game Terpercaya</title>
+ 
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Toko Topup Game | List Website Topup Game Terpercaya">
+    <meta property="og:description" content="Kumpulan website top-up game terpercaya seperti Codashop, UniPin, Itemku, Dunia Games, dan VCGamers. Temukan tempat top-up game favoritmu dengan mudah.">
+    <meta property="og:url" content="https://tokotopupgame.github.io/">
+    <meta property="og:image" content="https://tokotopupgame.github.io/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Toko Topup Game">
+ 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Toko Topup Game | List Website Topup Game Terpercaya">
+    <meta name="twitter:description" content="Kumpulan website top-up game terpercaya seperti Codashop, UniPin, Itemku, Dunia Games, dan VCGamers.">
+    <meta name="twitter:image" content="https://tokotopupgame.github.io/og-image.jpg">
+ 
+    <!-- SEO -->
+    <meta name="description" content="Kumpulan website top-up game terpercaya seperti Codashop, UniPin, Itemku, Dunia Games, dan VCGamers. Temukan tempat top-up game favoritmu dengan mudah.">
+    <meta name="keywords" content="topup game, top-up game, topup mobile legends, topup free fire, topup genshin impact, codashop, unipin, itemku">
+    <meta name="robots" content="index, follow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 48px;
+            font-size: 0.95rem;
+        }
+
+        .list {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 18px 24px;
+            color: #f1f5f9;
+            text-decoration: none;
+            font-weight: 600;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .item a:hover {
+            background: #253347;
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+
+        .item a span.arrow {
+            color: #38bdf8;
+            font-size: 1.1rem;
+        }
+
+        .error {
+            color: #f87171;
+            font-size: 0.9rem;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Toko Topup Game</h1>
+    <p class="subtitle">List Website Topup Game Terpercaya</p>
+
+    <div class="list" id="siteList"></div>
+
+    <script>
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            // Skip header row (name,link)
+            return lines.slice(1).map(line => {
+                // Split only on the FIRST comma to handle URLs with commas
+                const commaIndex = line.indexOf(',');
+                if (commaIndex === -1) return null;
+                const name = line.slice(0, commaIndex).trim();
+                const link = line.slice(commaIndex + 1).trim();
+                return (name && link) ? { name, link } : null;
+            }).filter(Boolean);
+        }
+
+        function renderList(sites) {
+            const list = document.getElementById('siteList');
+            list.innerHTML = sites.map(site => `
+                <div class="item">
+                    <a href="${site.link}" target="_blank" rel="noopener">
+                        ${site.name}
+                        <span class="arrow">→</span>
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        fetch('data.csv')
+            .then(res => {
+                if (!res.ok) throw new Error(`Gagal memuat data.csv (${res.status})`);
+                return res.text();
+            })
+            .then(text => {
+                const sites = parseCSV(text);
+                renderList(sites);
+            })
+            .catch(err => {
+                document.getElementById('siteList').innerHTML =
+                    `<p class="error">⚠️ ${err.message}</p>`;
+                console.error(err);
+            });
+    </script>
+
+</body>
+</html>
