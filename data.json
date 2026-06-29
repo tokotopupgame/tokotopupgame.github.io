@@ -1,17 +1,70 @@
 [
-    {
-        "name": "MobaPay",
-        "link": "https://www.mobapay.com",
-        "category": "Official"
-    },
   {
-        "name": "VocaGame",
-        "link": "https://vocagame.com",
-        "category": "Official"
-    },
-    {
-        "name": "UniPin",
-        "link": "https://unipin.com",
-        "category": "Official"
-    }
+    "name": "MobaPay",
+    "link": "https://www.mobapay.com"
+  },
+  {
+    "name": "VocaGame",
+    "link": "https://vocagame.com"
+  },
+  {
+    "name": "UniPin",
+    "link": "https://www.unipin.com"
+  },
+  {
+    "name": "Razer Gold",
+    "link": "https://gold.razer.com"
+  },
+  {
+    "name": "JollyMax",
+    "link": "https://www.jollymax.com"
+  },
+  {
+    "name": "KachiShop",
+    "link": "https://www.kachishop.com"
+  },
+  {
+    "name": "Codashop",
+    "link": "https://codashop.com"
+  },
+  {
+    "name": "SEAGM",
+    "link": "https://www.seagm.com"
+  },
+  {
+    "name": "LapakGaming",
+    "link": "https://www.lapakgaming.com?utm_campaign=tokotopupgame&utm_source=Affiliate&utm_medium=LGA"
+  },
+  {
+    "name": "Joytify",
+    "link": "https://www.joytify.com?utm_campaign=tokotopupgame&utm_source=Affiliate&utm_medium=LGA"
+  },
+  {
+    "name": "Buylink",
+    "link": "https://buylink.id/zany"
+  },
+  {
+    "name": "GameSquad",
+    "link": "https://zany.gamesquad.id"
+  },
+  {
+    "name": "Grosir Topup",
+    "link": "https://zany.grosirtopup.com"
+  },
+  {
+    "name": "Itemku",
+    "link": "https://itemku.com"
+  },
+  {
+    "name": "Dunia Games",
+    "link": "https://duniagames.co.id"
+  },
+  {
+    "name": "VCGamers",
+    "link": "https://s.vcgamers.com/D96kX_Oz1kP7O_H"
+  },
+  {
+    "name": "Topup Disini",
+    "link": "https://www.topupdisini.id/zanytopup"
+  }
 ]
